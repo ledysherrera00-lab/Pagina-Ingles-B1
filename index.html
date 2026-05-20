@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tales & Tunes | B1 Interactive English Hub</title>
+    <style>
+        :root {
+            --primary: #1e3a8a;
+            --secondary: #10b981;
+            --dark: #1f2937;
+            --light: #f8fafc;
+            --white: #ffffff;
+            --accent: #f59e0b;
+            --success: #059669;
+            --error: #dc2626;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f1f5f9;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        /* Hero Header */
+        header {
+            background: linear-gradient(135deg, rgba(30, 58, 138, 0.95), rgba(16, 185, 129, 0.9)),
+                url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80') no-repeat center center/cover;
+            color: var(--white);
+            text-align: center;
+            padding: 70px 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            font-weight: 300;
+            opacity: 0.95;
+        }
+
+        .level-badge {
+            display: inline-block;
+            background: var(--accent);
+            color: var(--dark);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-top: 15px;
+        }
+
+        /* Navigation Bar */
+        .tabs-container {
+            max-width: 1200px;
+            margin: -30px auto 40px auto;
+            padding: 0 20px;
+        }
+
+        .tabs-menu {
+            display: flex;
+            background: var(--white);
+            padding: 10px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            list-style: none;
+            overflow-x: auto;
+            gap: 10px;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 15px 20px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #4b5563;
+            transition: all 0.3s ease;
+            text-align: center;
+            white-space: nowrap;
+        }
+
+        .tab-btn:hover {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--secondary);
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, var(--primary), #2563eb);
+            color: var(--white);
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+        }
+
+        /* Content Blocks */
+        .tab-content {
+            display: none;
+            background: var(--white);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        h2 {
+            color: var(--primary);
+            font-size: 2rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 60px;
+            height: 4px;
+            background: var(--secondary);
+            border-radius: 2px;
+        }
+
+        /* Video Responsive Card */
+        .video-card {
+            background: #111827;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            margin: 25px 0;
+        }
+
+        .video-card iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* Interactive Activities Styles */
+        .activities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .activity-box {
+            background: var(--light);
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.3s ease;
+        }
+
+        .activity-box:hover {
+            transform: translateY(-3px);
+            border-color: var(--secondary);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .activity-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+
+        .activity-title {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 1rem;
+        }
+
+        .skill-tag {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            padding: 3px 8px;
+            border-radius: 10px;
+            font-weight: bold;
+            color: white;
+        }
+
+        .tag-listening {
+            background: #3b82f6;
+        }
+
+        .tag-vocabulary {
+            background: #8b5cf6;
+        }
+
+        .tag-grammar {
+            background: #ec4899;
+        }
+
+        .tag-writing {
+            background: #f59e0b;
+        }
+
+        .tag-reading {
+            background: #10b981;
+        }
+
+        .tag-speaking {
+            background: #ef4444;
+        }
+
+        .activity-box p {
+            font-size: 0.9rem;
+            color: #4b5563;
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        /* Form Controls */
+        input[type="text"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 0.9rem;
+        }
+
+        .check-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: background 0.3s;
+            width: 100%;
+        }
+
+        .check-btn:hover {
+            background: #1d4ed8;
+        }
+
+        .feedback-msg {
+            margin-top: 10px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: none;
+            padding: 8px;
+            border-radius: 6px;
+        }
+
+        .feedback-msg.correct {
+            display: block;
+            background: #d1fae5;
+            color: var(--success);
+        }
+
+        .feedback-msg.incorrect {
+            display: block;
+            background: #fee2e2;
+            color: var(--error);
+        }
+
+        /* Biographies Grid */
+        .grid-bios {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .card-bio {
+            background: var(--light);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            border-top: 5px solid var(--secondary);
+        }
+
+        .avatar-image {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            object-fit: cover;
+            /* Centra y recorta automáticamente el rostro */
+            margin: 0 auto 20px auto;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border: 3px solid var(--white);
+            outline: 2px solid var(--secondary);
+        }
+
+        .avatar-circle {
+            width: 80px;
+            height: 80px;
+            background: var(--white);
+            border-radius: 50%;
+            margin: 0 auto 20px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            background: var(--dark);
+            color: #9ca3af;
+            font-size: 0.9rem;
+            margin-top: 60px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Tales & Tunes: Digital Storytelling</h1>
+        <p>Interactive Didactic Framework • Santo Tomás University</p>
+        <span class="level-badge">Target Audience: CEFR Level B1 (Intermediate Learners)</span>
+    </header>
+
+    <div class="tabs-container">
+        <div class="tabs-menu">
+            <button class="tab-btn active" onclick="switchTab(event, 'home-tab')">💡 About Project</button>
+            <button class="tab-btn" onclick="switchTab(event, 'stories-tab')">🎬 Interactive Stories (16 Tasks)</button>
+            <button class="tab-btn" onclick="switchTab(event, 'teachers-tab')">👩‍🏫 Our Team</button>
+            <button class="tab-btn" onclick="switchTab(event, 'eco-tab')">📱 Digital Well-being</button>
+        </div>
+
+        <div id="home-tab" class="tab-content active">
+            <h2>Pedagogical Framework</h2>
+            <p style="font-size:1.1rem; color:#4b5563; margin-bottom:20px;">
+                Welcome to our didactic platform. This interactive environment integrates multi-format multimedia
+                digital media with English acquisition theories to achieve meaningful learning.
+            </p>
+            <p>
+                
+            <div id="home-tab" class="tab-content active">
+            <h2>Pedagogical Framework & Research Foundations</h2>
+            
+            <p style="font-size:1.15rem; color:#334155; margin-bottom:25px; font-weight: 500; text-align: justify;">
+                Welcome to our didactic platform. This interactive, hypermedia environment integrates multi-format digital storytelling with contemporary Second Language Acquisition (SLA) theories to foster meaningful English development. Designed specifically for intermediate learners navigating the CEFR Level B1, this framework transforms passive multimedia consumption into active communicative competence.
+            </p>
+
+            <h3 style="color:var(--primary); margin-top:25px; margin-bottom:12px;">📚 Theoretical Support & Storytelling Architecture</h3>
+            <p style="text-align: justify; margin-bottom:15px;">
+                According to the structural insights of <strong>Wright (2008)</strong>, stories offer a remarkably rich, meaningful, and deeply contextualized framework. This narrative architecture naturally fosters standard language acquisition while directly exposing foreign learners to authentic linguistic expressions, idiomatic usage, and socio-cultural nuances that traditional textbooks often overlook. Correspondingly, <strong>Egan (1997)</strong> reinforces that organizing an educational curriculum through cohesive narrative frameworks successfully captures students' emotional and imaginative focus, converting complex grammatical structures and abstract vocabulary into long-term memorable knowledge.
+            </p>
+            <p style="text-align: justify; margin-bottom:20px;">
+                By embedding these principles within a digital ecosystem, our project leverages <strong>Information and Communication Technologies (ICT)</strong> to promote autonomous learning. The integration of varied multimedia streams—ranging from original acoustics to dialogue-free cinematography—caters to diverse learning styles (visual, auditory, and kinesthetic), ensuring that input remains comprehensible yet appropriately challenging (Krashen's Input Hypothesis).
+            </p>
+
+            <div style="background: #eff6ff; padding: 25px; border-radius: 12px; border-left: 4px solid #3b82f6; margin-top: 25px; margin-bottom: 25px;">
+                <h3 style="color:#1e3a8a; margin-bottom:12px; font-size: 1.2rem;">🎯 Core Learning Objectives (CEFR B1):</h3>
+                <ul style="margin-left:20px; color:#1e3a8a; line-height: 1.7;">
+                    <li><strong>Auditory Processing:</strong> To track dense information streams, identify central plots, and extract specific lexical details across varied auditory media formats (songs and podcasts).</li>
+                    <li><strong>Structural Competence:</strong> To identify, process, and accurately implement target grammatical tenses—such as the Present Perfect, Past Continuous, and "Used to" structures—within interactive communicative tasks.</li>
+                    <li><strong>Productive Fluency:</strong> To stimulate oral spontaneity and creative written composition through active production tasks that simulate real-life language use.</li>
+                    <li><strong>Eco-Critical Reflection:</strong> To develop critical individual reflections and collaborative awareness regarding global sustainability, nature conservation, and local environmental preservation.</li>
+                </ul>
+            </div>
+
+            <h3 style="color:var(--primary); margin-top:25px; margin-bottom:12px;">🛠️ The Didactic Transformation & Web Architecture</h3>
+            <p style="text-align: justify; margin-bottom:15px;">
+                This platform acts as a bridge between theoretical pedagogy and active, self-paced student interaction. Visitors will explore a carefully sequenced educational path divided into four distinct digital formats: an original acoustic production, an analytical video podcast, a visually-driven short film, and an illustrated narrative flipbook. Each media format is coupled with a dedicated 4-task worksheet, culminating in <strong>16 interactive activities</strong>.
+            </p>
+            <p style="text-align: justify;">
+                These tasks are intentionally engineered to cover the core communicative sub-skills: <em>Listening, Vocabulary, Grammar, Reading, Speaking, and Writing</em>. Through immediate automated feedback loops and interactive inputs, the platform encourages trainee teachers to monitor student progress in real-time, proving that digital storytelling is an irreplaceable, transformative didactic asset in the modern language classroom.
+            </p>
+        </div>
+            </p>
+            <div
+                style="background: #eff6ff; padding: 20px; border-radius: 12px; border-left: 4px solid #3b82f6; margin-top: 25px;">
+                <h3 style="color:#1e3a8a; margin-bottom:10px;">🎯 Core Learning Objectives (B1):</h3>
+                <ul style="margin-left:20px;">
+                    <li>To track information streams and identify central plots across auditory media formats.</li>
+                    <li>To process core transitions, vocabulary contexts, and narrative tenses properly.</li>
+                    <li>To stimulate critical individual reflections regarding nature conservation and global
+                        sustainability.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="stories-tab" class="tab-content">
+            <h2>Digital Productions & Active Worksheets</h2>
+            <p style="color:#6b7280; margin-bottom:20px;">Complete the 4 distinct interactive activities established
+                under each specialized video connection to reinforce your B1 competencies.</p>
+
+            <div style="margin-top: 30px; border-bottom: 2px dashed #e2e8f0; padding-bottom: 40px;">
+                <h3 style="color:var(--primary); font-size:1.4rem;">🎵 Project 1: Original Song Video</h3>
+                <div class="video-card">
+                    <iframe width="537" height="576" src="https://www.youtube.com/embed/WSJwNOTTOpE" title="Tittle: New Beginnings (B1)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div>
+
+                <div class="activities-grid">
+                    <div class="activity-box">
+                        <div class="activity-header">
+                            <span class="activity-title">Activity 1: Fill-in-the-Blank</span>
+                            <span class="skill-tag tag-listening">Listening</span>
+                        </div>
+                        <p>Listen closely. Type the missing word: "We need a steady and _______ effort to heal our local
+                            environment."</p>
+                        <input type="text" id="s1" placeholder="Type the missing word...">
+                        <button class="check-btn" onclick="validateText('s1', 'sustained')">Verify</button>
+                        <div id="s1-fb" class="feedback-msg"></div>
+                    </div>
+                    <div class="activity-box">
+                        <div class="activity-header">
+                            <span class="activity-title">Activity 2: Concept Match</span>
+                            <span class="skill-tag tag-vocabulary">Vocabulary</span>
+                        </div>
+                        <p>What is the exact meaning of the musical concept keyword <strong>"Whisper"</strong>?</p>
+                        <select id="s2">
+                            <option value="">-- Select option --</option>
+                            <option value="wrong">To scream loudly due to danger</option>
+                            <option value="correct">To speak or make a sound in a very quiet way</option>
+                        </select>
+                        <button class="check-btn" onclick="validateSelect('s2', 'correct')">Verify</button>
+                        <div id="s2-fb" class="feedback-msg"></div>
+                    </div>
+                    <div class="activity-box">
+                        <div class="activity-header">
+                            <span class="activity-title">Activity 3: Perfect Tense</span>
+                            <span class="skill-tag tag-grammar">Grammar</span>
+                        </div>
+                        <p>Complete using Present Perfect: "Human actions _______ (change) the rhythm of nature."</p>
+                        <input type="text" id="s3" placeholder="e.g., have broken">
+                        <button class="check-btn" onclick="validateText('s3', 'have changed')">Verify</button>
+                        <div id="s3-fb" class="feedback-msg"></div>
+                    </div>
+                    <div class="activity-box">
+                        <div class="activity-header">
+                            <span class="activity-title">Activity 4: Creative Verse</span>
+                            <span class="skill-tag tag-writing">Writing</span>
+                        </div>
+                        <p>Write an alternate 4-line verse in English expressing a message about taking care of rivers.
+                        </p>
+                        <textarea rows="2" placeholder="Write your lines here..."></textarea>
+                        <button class="check-btn"
+                            onclick="simulateSubmit('Your verse has been sent to your teacher portfolio! Keep expressing your ideas.')">Submit
+                            Verse</button>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 40px; border-bottom: 2px dashed #e2e8f0; padding-bottom: 40px;">
+                <h3 style="color:var(--primary); font-size:1.4rem;">🎙️ Project 2: Video Podcast Episode</h3>
+                <div class="video-card">
+                    <iframe src="https://www.youtube.com/embed/ixXJ365P9Us" allowfullscreen></iframe>
+                </div>
+
+                <div class="activities-grid">
+                    <div class="activity-box">
+                        <div class="activity-header">
+                            <span class="activity-title">Activity 5: Host Perspectives</span>
+                            <span class="skill-tag tag-listening">Listening</span>
+                        </div>
+                        <p>True or False: The speakers assert that digital stories are replacing regular classroom
+                            reading completely.</p>
+                        <select id="p1">
+                            <option value="">-- Choose --</option>
+                            <option value="wrong">True</option>
+                            <option value="correct">False (They complement each other)</option>
+                        </select>
+                        <button class="check-btn" onclick="validateSelect('p1', 'correct')">Verify</button>
+                        <div id="p1-fb" class="feedback-msg"></div>
+                    </div>
+                    <div class="activity-box">
+                        <div class="activity-header">
+                            <span class="activity-title">Activity 6: Idiom Identification</span>
+                            <span class="skill-tag tag-vocabulary">Vocabulary</span>
+                        </div>
+                        <p>When a speaker says a task is a <strong>"piece of cake"</strong>, what does it signify?</p>
+                        <select id="p2">
+                            <option value="">-- Choose --</option>
+                            <option value="correct">It is incredibly easy to complete</option>
+                            <option value="wrong">It involves cooking or food preparation</option>
+                        </select>
+                        <button class="check-btn" onclick="validateSelect('p2', 'correct')">Verify</button>
+                        <div id="p2-fb" class="feedback-msg"></div>
+                    </div>
+                    <div class="activity-box">
+                        <div class="activity-header">
+                            <span class="activity-title">Activity 7: Connector Selection</span>
+                            <span class="skill-tag tag-grammar">Grammar</span>
+                        </div>
+                        <p>Choose the correct connector: "Digital platforms are great. _______, we must monitor screen
+                            time."</p>
+                        <select id="p3">
+                            <option value="">-- Choose --</option>
+                            <option value="wrong">Furthermore</option>
+                            <option value="correct">However</option>
+                            <option value="wrong2">Because</option>
+                        </select>
+                        <button class="check-btn" onclick="validateSelect('p3', 'correct')">Verify</button>
+                        <div id="p3-fb" class="feedback-msg"></div>
+                    </div>
+                    <div class="activity-box">
+                        <div class="activity-header">
+                            <span class="activity-title">Activity 8: Mini Podcasting</span>
+                            <span class="skill-tag tag-speaking">Speaking</span>
+                        </div>
+                        <p>Record a 1-minute audio response: Do you prefer creating a song or a podcast to learn
+                            English? Why?</p>
+                        <button class="check-btn"
+                            onclick="simulateSubmit('Microphone connection successful! Audio answer uploaded to evaluation panel.')">Record
+                            Answer</button>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 40px; border-bottom: 2px dashed #e2e8f0; padding-bottom: 40px;">
+                <h3 style="color:var(--primary); font-size:1.4rem;">🎬 Project 3: Visual Short Film (No Dialogue)</h3>
+                <div class="video-card">
+<iframe width="851" height="480" src="https://www.youtube.com/embed/NMJICTaUbaI" title="The mysterious door" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>                </div>
+
+                <div class="activities-grid">
+                    <div class="activity-box">
+                        <div class="activity-header">
+                            <span class="activity-title">Activity 9: Sequence Ordering</span>
+                            <span class="skill-tag tag-reading">Reading</span>
+                        </div>
+                        <p>Based on visual cues, what action happens immediately after the protagonist finds the old
+                            map?</p>
+                        <select id="f1">
+                            <option value="">-- Choose --</option>
+                            <option value="wrong">The character goes to sleep</option>
+                            <option value="correct">The character packs a bag and enters the forest</option>
+                        </select>
+                        <button class="check-btn" onclick="validateSelect('f1', 'correct')">Verify</button>
+                        <div id="f1-fb" class="feedback-msg"></div>
+                    </div>
+                    <div class="activity-box">
+                        <div class="activity-header">
+                            <span class="activity-title">Activity 10: Feeling Terms</span>
+                            <span class="skill-tag tag-vocabulary">Vocabulary</span>
+                        </div>
+                        <p>Which B1 adjective best defines the mood when the music slows down and darkness appears?</p>
+                        <select id="f2">
+                            <option value="">-- Choose --</option>
+                            <option value="correct">Gloomy</option>
+                            <option value="wrong">Cheerful</option>
+                            <option value="wrong2">Crowded</option>
+                        </select>
+                        <button class="check-btn" onclick="validateSelect('f2', 'correct')">Verify</button>
+                        <div id="f2-fb" class="feedback-msg"></div>
+                    </div>
+                    <div class="activity-box">
+                        <div class="activity-header">
+                            <span class="activity-title">Activity 11: Past Continuous</span>
+                            <span class="skill-tag tag-grammar">Grammar</span>
+                        </div>
+                        <p>Fill in: "While the rain _______ (fall), the main character found shelter inside a hidden
+                            cave."</p>
+                        <input type="text" id="f3" placeholder="e.g., was raining">
+                        <button class="check-btn" onclick="validateText('f3', 'was falling')">Verify</button>
+                        <div id="f3-fb" class="feedback-msg"></div>
+                    </div>
+                    <div class="activity-box">
+                        <div class="activity-header">
+                            <span class="activity-title">Activity 12: Character Dubbing</span>
+                            <span class="skill-tag tag-speaking">Speaking</span>
+                        </div>
+                        <p>Mute the short film for 30 seconds. Act as the character and narrate out loud what you are
+                            thinking.</p>
+                        <button class="check-btn"
+                            onclick="simulateSubmit('Oral narration recorded! Excellent exercise for B1 spontaneity.')">Start
+                            Live Dubbing</button>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 40px;">
+                <h3 style="color:var(--primary); font-size:1.4rem;">📖 Project 4: Storytale Narrative Hub</h3>
+                <p style="margin-bottom: 10px;">🌐 Explore the graphic architecture directly: <a
+                        href="https://heyzine.com/flip-book/6db8be86ef.html" target="_blank"
+                        style="color:var(--secondary); font-weight:bold; text-decoration:underline;">Open Interactive
+                        Flipbook</a></p>
+                <div class="video-card">
+                    <iframe width="853" height="480" src="https://www.youtube.com/embed/dH-oK2c_FkQ" title="The Whispering Forest" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div>
+
+                <div class="activities-grid">
+                    <div class="activity-box">
+                        <div class="activity-header">
+                            <span class="activity-title">Activity 13: Core Moral</span>
+                            <span class="skill-tag tag-reading">Reading</span>
+                        </div>
+                        <p>What is the ultimate message or moral takeaway behind the legend's plot?</p>
+                        <select id="t1">
+                            <option value="">-- Choose --</option>
+                            <option value="correct">Ecosystem protection requires collective community action</option>
+                            <option value="wrong">Individual ambition is more effective than team coordination</option>
+                        </select>
+                        <button class="check-btn" onclick="validateSelect('t1', 'correct')">Verify</button>
+                        <div id="t1-fb" class="feedback-msg"></div>
+                    </div>
+                    <div class="activity-box">
+                        <div class="activity-header">
+                            <span class="activity-title">Activity 14: Adjective Sorting</span>
+                            <span class="skill-tag tag-vocabulary">Vocabulary</span>
+                        </div>
+                        <p>Identify the synonym for the advanced narrative description term <strong>"Vast"</strong>:</p>
+                        <select id="t2">
+                            <option value="">-- Choose --</option>
+                            <option value="wrong">Tiny</option>
+                            <option value="correct">Immense or huge</option>
+                            <option value="wrong2">Dangerous</option>
+                        </select>
+                        <button class="check-btn" onclick="validateSelect('t2', 'correct')">Verify</button>
+                        <div id="t2-fb" class="feedback-msg"></div>
+                    </div>
+                    <div class="activity-box">
+                        <div class="activity-header">
+                            <span class="activity-title">Activity 15: Used To Structure</span>
+                            <span class="skill-tag tag-grammar">Grammar</span>
+                        </div>
+                        <p>Change this sentence to express past habit: "Ancestors protected the lake." -> "Ancestors
+                            _______ protect..."</p>
+                        <input type="text" id="t3" placeholder="Type structure here...">
+                        <button class="check-btn" onclick="validateText('t3', 'used to')">Verify</button>
+                        <div id="t3-fb" class="feedback-msg"></div>
+                    </div>
+                    <div class="activity-box">
+                        <div class="activity-header">
+                            <span class="activity-title">Activity 16: Summary Log</span>
+                            <span class="skill-tag tag-writing">Writing</span>
+                        </div>
+                        <p>Write an 80-word summary detailing how your hometown protects its local water resources.</p>
+                        <textarea rows="2" placeholder="Write summary here..."></textarea>
+                        <button class="check-btn"
+                            onclick="simulateSubmit('Summary logged successfully. Outstanding B1 lexical range tracking!')">Save
+                            Summary</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="teachers-tab" class="tab-content">
+            <h2>Meet the Trainee Teachers</h2>
+            <div class="grid-bios">
+                <div class="card-bio">
+                    <img src="images/diana.jpeg" alt="Diana Peña" class="avatar-image">
+
+                    <h3>Diana Peña</h3>
+
+                    <p style="font-size:0.9rem; text-align:justify;">Hello! I am Diana Peña, a senior student pursuing a
+                        Bachelor’s Degree in Spanish with an emphasis on English and French at Universidad Santo Tomás.
+                        I am deeply passionate about language teaching, intercultural communication, and continuous
+                        learning—tools that I consider fundamental for educational transformation.
+                        My approach focuses on holistic education, assertive communication, and personal growth. As a
+                        future educator, my goal is to inspire students to discover the world through languages,
+                        fostering empathy, cultural awareness, and the development of their full potential.</p>
+                </div>
+                <div class="card-bio">
+                    <img src="images/valentina.jpeg" alt="Valentina Rondón" class="avatar-image">
+
+                    <h3>Valentina Rondón</h3>
+                    <p style="font-size:0.9rem; text-align:justify;">Hello! I’m Valentina Rondón a future language
+                        educator who truly believes that learning a new language should be an exciting journey. As a
+                        student-teacher, I love designing interactive lessons where culture, active engagement, and
+                        real-life communication take center stage.
+                        My main drive is connecting with my students, understanding their unique needs, and guiding them
+                        to unlock their full potential. When I am not planning dynamic lessons or exploring new
+                        pedagogical resources, you will probably find me learning something new because to be a great
+                        teacher, I believe one must never stop being a student. Let’s explore the world of languages
+                        together!</p>
+                </div>
+                <div class="card-bio">
+                    <img src="images/david.jpeg" alt="David Velandia" class="avatar-image">
+                    <h3>David Velandia</h3>
+
+                    <p style="font-size:0.9rem; text-align:justify;">Hi there! I’m David Velandia. I am in the final
+                        stretch of my degree at Universidad Santo Tomás, training to connect the world through Spanish,
+                        English, and French. I am driven by a genuine passion for teaching, intercultural exchange, and
+                        personal development.
+                        I truly believe that learning a language means opening a door to new perspectives. That is why
+                        my mission in the classroom is to build an interactive, supportive, and stimulating environment
+                        where students take the lead in their learning journey and discover that knowledge has no
+                        boundaries. Welcome to my space!</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="eco-tab" class="tab-content">
+            <h2>📱 Digital Well-Being Hub</h2>
+            <p style="font-size:1.1rem; color:#4b5563; margin-bottom:25px; text-align: justify;">
+                This specialized module explores the impact of social media on our daily routines. It provides intermediate learners with essential B1 vocabulary and reflective tools to analyze digital habits, online identity, and strategies for a healthy relationship with technology.
+            </p>
+            
+            <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:20px; margin-bottom: 35px;">
+                <div style="background:#f0f9ff; padding:22px; border-radius:12px; border: 1px solid #bae6fd; box-shadow: 0 4px 6px rgba(0,0,0,0.01);">
+                    <h4 style="color:#0369a1; margin-bottom:8px; font-size:1.1rem; display:flex; align-items:center; gap:8px;">⏳ Screen Time</h4>
+                    <p style="font-size:0.9rem; color:#374151; text-align: justify;">
+                        <strong>Definition:</strong> The total amount of time a person spends looking at the screens of devices such as smartphones, tablets, or computers.
+                    </p>
+                    <p style="font-size:0.85rem; color:#6b7280; font-style:italic; margin-top:8px;">
+                        Context: "Reducing your daily screen time can significantly improve your sleep quality and focus."
+                    </p>
+                </div>
+                
+                <div style="background:#f0f9ff; padding:22px; border-radius:12px; border: 1px solid #bae6fd; box-shadow: 0 4px 6px rgba(0,0,0,0.01);">
+                    <h4 style="color:#0369a1; margin-bottom:8px; font-size:1.1rem; display:flex; align-items:center; gap:8px;">🧠 Digital Detoxing</h4>
+                    <p style="font-size:0.9rem; color:#374151; text-align: justify;">
+                        <strong>Definition:</strong> A period of time during which a person refrains from using electronic devices to reduce stress and focus on physical social interaction.
+                    </p>
+                    <p style="font-size:0.85rem; color:#6b7280; font-style:italic; margin-top:8px;">
+                        Context: "Taking a weekend digital detox helps teenagers reconnect with real-world hobbies."
+                    </p>
+                </div>
+            </div>
+
+            <div style="background:#fffbeb; padding:30px; border-radius:15px; border: 1px solid #fde68a; box-shadow: 0 4px 10px rgba(0,0,0,0.02);">
+                <h3 style="color:#b45309; margin-bottom:10px; font-size:1.3rem; display:flex; align-items:center; gap:8px;">✍️ Creative Digital Challenge</h3>
+                <p style="font-size:0.95rem; color:#4b5563; margin-bottom:20px; text-align: justify; font-style: italic;">
+                    "Draft a short text (50-80 words) in English explaining how social media notifications affect your concentration during study hours, and suggest one solution to manage it."
+                </p>
+                
+                <textarea id="digital-essay" rows="4" style="width:100%; padding:12px; border: 2px solid #fcd34d; border-radius:8px; font-size:0.95rem; margin-bottom:15px; resize:vertical;" placeholder="Write your digital reflection here using B1 vocabulary..."></textarea>
+                
+                <button class="check-btn" style="background:#d97706; padding:12px;" onclick="validateDigitalChallenge()">Submit Reflection</button>
+                <div id="digital-fb" class="feedback-msg"></div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>Communicative English & Pedagogy Evaluation Portfolio</p>
+        <p>&copy; 2026 - Diana, Valentina & David. Santo Tomás University (Tunja).</p>
+    </footer>
+
+    <script>
+        // Tab switcher function
+        function switchTab(evt, tabId) {
+            const contents = document.getElementsByClassName("tab-content");
+            for (let i = 0; i < contents.length; i++) contents[i].classList.remove("active");
+
+            const buttons = document.getElementsByClassName("tab-btn");
+            for (let i = 0; i < buttons.length; i++) buttons[i].classList.remove("active");
+
+            document.getElementById(tabId).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+
+        // Text input exact verification
+        function validateText(inputId, correctValue) {
+            const userAns = document.getElementById(inputId).value.trim().toLowerCase();
+            const feedback = document.getElementById(inputId + "-fb");
+            if (userAns === correctValue) {
+                feedback.innerHTML = "✨ Correct! Remarkable command of the B1 structure.";
+                feedback.className = "feedback-msg correct";
+            } else {
+                feedback.innerHTML = "❌ Try again. Check spelling or trace the audio clue carefully.";
+                feedback.className = "feedback-msg incorrect";
+            }
+        }
+
+        // Dropdown selection verification
+        function validateSelect(selectId, targetValue) {
+            const selectedVal = document.getElementById(selectId).value;
+            const feedback = document.getElementById(selectId + "-fb");
+            if (selectedVal === targetValue) {
+                feedback.innerHTML = "🎯 Excellent! Accurate comprehension analysis.";
+                feedback.className = "feedback-msg correct";
+            } else if (selectedVal === "") {
+                feedback.innerHTML = "⚠️ Please choose a valid answer option.";
+                feedback.className = "feedback-msg incorrect";
+            } else {
+                feedback.innerHTML = "❌ Incorrect choice. Re-read or watch the segment once more.";
+                feedback.className = "feedback-msg incorrect";
+            }
+        }
+
+        // Generic custom feedback trigger for production tasks
+        function simulateSubmit(message) {
+            alert(message);
+        }
+    </script>
+</body>
+
+</html>
